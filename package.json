@@ -3,6 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "author": {
+    "name": "Mohammed Afif Ahmed",
+    "email": "afifahmed456123@gmail.com",
+    "url": "https://afifahmed.me"
+  },
   "scripts": {
     "start": "ts-node-dev src/index.ts"
   },
