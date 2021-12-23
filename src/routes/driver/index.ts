@@ -5,7 +5,7 @@ require("dotenv").config();
 
 const driverApp = express();
 
-driverApp.use("/list", driverGetRouter);
+driverApp.use(driverGetRouter);
 driverApp.use("/create", driverCreateRouter);
 
 export { driverApp as driverIndexRouter };
