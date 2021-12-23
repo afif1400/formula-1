@@ -7,7 +7,7 @@ const start = async () => {
   await Mongoose.connect(process.env.MONGO_CONNECTION_URL!);
   console.log("Connected to MongoDB");
 
-  await app.listen(5000, () => {
+  app.listen(process.env.PORT || 5000, () => {
     console.log("started on port 5000...");
   });
 };
