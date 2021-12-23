@@ -9,6 +9,7 @@ interface ResultAttributes {
   grid: number;
   position: number;
   positionText: string;
+  positionOrder: number;
   points: number;
   laps: number;
   time: string;
@@ -30,6 +31,7 @@ interface ResultDoc extends Document {
   grid: number;
   position: number;
   positionText: string;
+  positionOrder: number;
   points: number;
   laps: number;
   time: string;
@@ -74,10 +76,12 @@ const resultSchema = new Schema(
     },
     position: {
       type: Number,
-      required: true,
     },
     positionText: {
       type: String,
+    },
+    positionOrder: {
+      type: Number,
       required: true,
     },
     points: {
@@ -110,7 +114,6 @@ const resultSchema = new Schema(
     },
     statusText: {
       type: String,
-      required: true,
     },
     fastestLapTime: {
       type: String,
@@ -136,19 +139,19 @@ resultSchema.statics.build = (attributes: ResultAttributes) => {
   return new Result();
 };
 
-resultSchema.virtual("constructor", {
+resultSchema.virtual("constructorDetails", {
   ref: "Constructor",
   localField: "constructorId",
   foreignField: "constructorId",
 });
 
-resultSchema.virtual("driver", {
+resultSchema.virtual("driverDetails", {
   ref: "Driver",
   localField: "driverId",
   foreignField: "driverId",
 });
 
-resultSchema.virtual("race", {
+resultSchema.virtual("raceDetails", {
   ref: "Race",
   localField: "raceId",
   foreignField: "raceId",
