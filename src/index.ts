@@ -1,6 +1,5 @@
 import { app } from "./app";
 import Mongoose from "mongoose";
-require("dotenv").config();
 
 const start = async () => {
   //* can add other options or configurations, like connecting to the database

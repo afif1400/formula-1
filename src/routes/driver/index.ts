@@ -1,6 +1,7 @@
 import express from "express";
 import { driverCreateRouter } from "./create";
 import { driverGetRouter } from "./get";
+require("dotenv").config();
 
 const driverApp = express();
 
