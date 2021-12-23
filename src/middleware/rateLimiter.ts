@@ -6,7 +6,7 @@ import {
   MAX_WINDOW_REQUEST,
   WINDOW_LOG_INTERVAL,
   WINDOW_SIZE,
-} from "../lib/redis";
+} from "../lib/redis/redis";
 
 interface IRequestLog {
   requestTimeStamp: number;
@@ -18,19 +18,12 @@ export const rateLimiter = async (
   res: Response,
   next: NextFunction
 ) => {
-  //   client.on("error", (err) => {
-  //     console.log("unable to connect to redis database");
-  //   });
-
-  //   await client.connect();
-  //   console.log("connected to redis...");
-
   const ip: string = req.ip;
 
   const record = await client.get(ip);
 
   const currentRequestTime = moment();
-  if (record == null) {
+  if (!record) {
     let newRecord: IRequestLog[] = [];
     let requestLog: IRequestLog = {
       requestTimeStamp: currentRequestTime.unix(),

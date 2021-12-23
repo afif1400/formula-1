@@ -9,6 +9,7 @@ import { resultIndexRouter } from "./routes/results";
 const app = express();
 
 app.use(json());
+require("./lib/redis/cache");
 app.use("/drivers", driverIndexRouter);
 app.use("/constructors", constructorIndexRouter);
 app.use("/circuits", circuitIndexRouter);
