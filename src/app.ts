@@ -1,4 +1,4 @@
-import express, { Request, Response } from "express";
+import express from "express";
 import { driverIndexRouter } from "./routes/driver";
 import { constructorIndexRouter } from "./routes/constructors";
 import { json } from "body-parser";

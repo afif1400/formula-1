@@ -16,8 +16,8 @@ mongoose.Query.prototype.cache = function (options: any = {}) {
 };
 
 mongoose.Query.prototype.exec = async function (...args: any) {
-  if (this.useCache === false) {
-    exec.apply(this, args);
+  if (!this.useCache) {
+    return exec.apply(this, args);
   }
 
   const key = JSON.stringify(
@@ -32,7 +32,7 @@ mongoose.Query.prototype.exec = async function (...args: any) {
 
   if (cachedValue) {
     const doc = JSON.parse(cachedValue);
-    console.log("cache hit");
+    console.log("from cache");
     return Array.isArray(doc)
       ? doc.map((d) => new this.model(d))
       : new this.model(doc);

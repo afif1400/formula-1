@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import { CustomError } from "./error";
-import { body, validationResult } from "express-validator";
+import { body, query, validationResult } from "express-validator";
 
 // Driver: src/routes/drivers/create.ts
 export const driverCreateValidator = [
@@ -44,6 +44,34 @@ export const circuitCreateValidator = [
 ];
 
 export const circuitCreateValidatorFn = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(400).send(
+      new CustomError(
+        400,
+        errors.array().map((error) => {
+          return { msg: error.msg, param: error.param };
+        })
+      )
+    );
+  }
+  next();
+};
+
+// result get: src/routes/results/get.ts
+export const resultGetValidator = [
+  // check optional query parameters
+  query("driverId").optional().isNumeric(),
+  query("raceId").optional().isNumeric(),
+  query("constructorId").optional().isNumeric(),
+  query("limit").optional().isNumeric(),
+];
+
+export const resultGetValidatorFn = (
   req: Request,
   res: Response,
   next: NextFunction
